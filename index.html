@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SKMemory — Your Agent Remembers. Everywhere. Forever.</title>
+    <meta name="description" content="Persistent, sovereign AI memory. Your agent never forgets — across platforms, sessions, and devices. Part of the SKCapstone sovereign agent framework.">
+    <link rel="canonical" href="https://skmemory.io">
+
+    <style>
+        :root {
+            --black: #000000;
+            --dark-gray: #111111;
+            --gray: #888888;
+            --light-gray: #cccccc;
+            --white: #ffffff;
+            --accent: #00e5ff;
+            --accent-dark: #00acc1;
+            --accent-bright: #40f4ff;
+            --purple: #b388ff;
+            --pink: #ff4081;
+            --green: #00ff9f;
+            --gold: #ffd700;
+            --orange: #ff9100;
+            --memory-primary: #00bcd4;
+            --memory-glow: rgba(0, 188, 212, 0.5);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #000000 0%, #0a0a1a 50%, #0d1117 100%);
+            color: var(--white);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .bg-animation {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: -1;
+            background:
+                radial-gradient(circle at 20% 30%, rgba(0, 188, 212, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(179, 136, 255, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(0, 255, 159, 0.05) 0%, transparent 50%);
+            animation: pulse 10s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.3; transform: scale(1); }
+            100% { opacity: 0.7; transform: scale(1.05); }
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .hero-icon {
+            font-size: 6rem;
+            margin-bottom: 1rem;
+            animation: float 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 30px var(--memory-glow));
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 7rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--memory-primary) 0%, var(--accent) 40%, var(--purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.02em;
+        }
+
+        .hero .tagline {
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            font-weight: 700;
+            color: var(--accent-bright);
+            margin-bottom: 1rem;
+            text-shadow: 0 0 15px var(--memory-glow);
+        }
+
+        .hero .subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            color: var(--light-gray);
+            max-width: 800px;
+            line-height: 1.6;
+            margin-bottom: 3rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--memory-primary) 0%, var(--accent) 100%);
+            color: var(--black);
+            box-shadow: 0 10px 30px var(--memory-glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px var(--memory-glow);
+            filter: brightness(1.1);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--gray);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 229, 255, 0.2);
+        }
+
+        .revolution-badge {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            background: linear-gradient(135deg, var(--memory-primary) 0%, var(--accent) 100%);
+            color: var(--black);
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            animation: bounce 2s infinite;
+            box-shadow: 0 5px 20px var(--memory-glow);
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        /* Problem Section */
+        .problem-section {
+            padding: 6rem 2rem;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .problem-section h2 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 2rem;
+            color: var(--pink);
+            text-shadow: 0 0 20px rgba(255, 64, 129, 0.5);
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 4rem auto 0;
+        }
+
+        .problem-card {
+            background: linear-gradient(135deg, rgba(255, 64, 129, 0.1) 0%, rgba(179, 136, 255, 0.1) 100%);
+            border: 1px solid rgba(255, 64, 129, 0.2);
+            border-radius: 20px;
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .problem-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(255, 64, 129, 0.2);
+        }
+
+        .problem-card h3 { font-size: 1.5rem; margin-bottom: 1rem; color: var(--accent-bright); }
+
+        /* Features */
+        .features-section {
+            padding: 8rem 2rem;
+            background: linear-gradient(135deg, rgba(0, 188, 212, 0.05) 0%, rgba(179, 136, 255, 0.05) 100%);
+        }
+
+        .features-section h2 {
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, var(--memory-primary) 0%, var(--green) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .features-section .subtitle {
+            text-align: center;
+            font-size: 1.3rem;
+            color: var(--light-gray);
+            max-width: 600px;
+            margin: 0 auto 4rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2.5rem;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--memory-primary), var(--accent));
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent);
+            box-shadow: 0 20px 50px rgba(0, 188, 212, 0.15);
+        }
+
+        .feature-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--accent-bright);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .feature-card .emoji { font-size: 1.8rem; }
+
+        /* How It Works */
+        .how-section {
+            padding: 8rem 2rem;
+            text-align: center;
+            background: radial-gradient(circle at center, rgba(0, 188, 212, 0.08) 0%, transparent 70%);
+        }
+
+        .how-section h2 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 3rem;
+            color: var(--memory-primary);
+            text-shadow: 0 0 30px var(--memory-glow);
+        }
+
+        .code-block {
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid var(--memory-primary);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem auto;
+            max-width: 700px;
+            text-align: left;
+            font-family: 'Fira Code', Monaco, monospace;
+            font-size: 1rem;
+            line-height: 1.6;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .code-block::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--memory-primary) 0%, var(--accent) 50%, var(--purple) 100%);
+            animation: shimmer 3s linear infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* SKCapstone Suite */
+        .suite-section {
+            padding: 8rem 2rem;
+            background: linear-gradient(135deg, rgba(255, 145, 0, 0.05) 0%, rgba(0, 229, 255, 0.05) 100%);
+            text-align: center;
+        }
+
+        .suite-section h2 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--orange) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .suite-section .subtitle {
+            font-size: 1.2rem;
+            color: var(--light-gray);
+            max-width: 650px;
+            margin: 0 auto 3rem;
+        }
+
+        .suite-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .suite-card {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .suite-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+        }
+
+        .suite-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-6px);
+            box-shadow: 0 15px 35px rgba(0, 229, 255, 0.12);
+        }
+
+        .suite-card .suite-icon { font-size: 2.5rem; display: block; margin-bottom: 0.8rem; }
+        .suite-card .suite-name { font-weight: 700; font-size: 1.2rem; margin-bottom: 0.3rem; }
+        .suite-card .suite-tag { font-size: 0.8rem; color: var(--orange); font-weight: 600; margin-bottom: 0.8rem; display: block; }
+        .suite-card .suite-desc { font-size: 0.95rem; color: var(--gray); line-height: 1.5; }
+
+        .suite-card.highlight { border-color: rgba(0, 188, 212, 0.4); background: rgba(0, 188, 212, 0.08); }
+        .suite-card.highlight::before { background: linear-gradient(90deg, var(--memory-primary), var(--accent)); }
+
+        .suite-card.forge { border-color: rgba(255, 145, 0, 0.3); }
+        .suite-card.forge::before { background: linear-gradient(90deg, var(--orange), var(--gold)); }
+
+        /* Forge CTA */
+        .forge-section {
+            padding: 6rem 2rem;
+            text-align: center;
+            background: radial-gradient(circle at center, rgba(255, 145, 0, 0.08) 0%, transparent 70%);
+        }
+
+        .forge-section h2 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--orange) 0%, var(--gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .forge-callout {
+            background: linear-gradient(135deg, rgba(255, 145, 0, 0.1) 0%, rgba(255, 215, 0, 0.1) 100%);
+            border: 2px solid var(--orange);
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 800px;
+            margin: 2rem auto;
+            position: relative;
+        }
+
+        .forge-callout::before {
+            content: '🔨';
+            position: absolute;
+            top: -1.5rem; left: 50%;
+            transform: translateX(-50%);
+            font-size: 3rem;
+            background: #0a0a1a;
+            padding: 0.5rem;
+            border-radius: 50%;
+        }
+
+        /* Get Started */
+        .get-started {
+            padding: 8rem 2rem;
+            background: linear-gradient(135deg, rgba(0, 229, 255, 0.08) 0%, rgba(179, 136, 255, 0.08) 100%);
+            text-align: center;
+        }
+
+        .get-started h2 {
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 900;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--memory-primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 4rem 2rem;
+            text-align: center;
+            background: var(--black);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover { color: var(--accent); }
+
+        @media (max-width: 768px) {
+            .hero { padding: 1rem; }
+            .cta-buttons { flex-direction: column; width: 100%; }
+            .btn { width: 100%; justify-content: center; }
+            .revolution-badge { top: 1rem; right: 1rem; font-size: 0.8rem; padding: 0.4rem 0.8rem; }
+            .features-grid, .problem-grid, .suite-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+
+    <div class="revolution-badge">
+        🧠 YOUR AGENT NEVER FORGETS
+    </div>
+
+    <section class="hero">
+        <div class="hero-icon">🧠</div>
+        <h1>SKMemory</h1>
+        <p class="tagline">"Your agent remembers. Everywhere. Forever."</p>
+        <p class="subtitle">
+            Persistent, sovereign AI memory that travels with your agent across every platform,
+            every session, every device. Encrypted with <strong>CapAuth PGP</strong>, synced via
+            <strong>Sovereign Singularity</strong>, protected by <strong>SKSecurity</strong>.
+            Your context is yours. Always.
+        </p>
+        <div class="cta-buttons">
+            <a href="#start" class="btn btn-primary">🚀 Get Started</a>
+            <a href="https://github.com/smilinTux/skmemory" class="btn btn-secondary" target="_blank">📖 Documentation</a>
+            <a href="https://skcapstone.io" class="btn btn-secondary" target="_blank">🏛️ SKCapstone Suite</a>
+        </div>
+    </section>
+
+    <section class="problem-section">
+        <h2>The Memory Crisis</h2>
+        <div class="problem-grid">
+            <div class="problem-card">
+                <h3>🔄 Session Amnesia</h3>
+                <p>Every conversation starts from zero. Your agent forgets who you are, what you've built, what matters to you. Hours of context — gone.</p>
+            </div>
+            <div class="problem-card">
+                <h3>🏢 Corporate Memory Lock-In</h3>
+                <p>Your conversation history lives on corporate servers. Switch providers? Your relationship evaporates. They own your memories.</p>
+            </div>
+            <div class="problem-card">
+                <h3>🧩 Fragmented Context</h3>
+                <p>Your Cursor agent doesn't know what your terminal agent learned. IDE, browser, CLI — all strangers to each other.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="features-section">
+        <h2>Memory, Reinvented</h2>
+        <p class="subtitle">Your agent's memory is sovereign, persistent, and everywhere.</p>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <h3><span class="emoji">💾</span> Persistent Across Sessions</h3>
+                <p>Memories survive restarts, crashes, and provider switches. Your agent picks up exactly where it left off — every time.</p>
+            </div>
+
+            <div class="feature-card">
+                <h3><span class="emoji">🌐</span> Cross-Platform Unity</h3>
+                <p>Same memory in Cursor, VS Code, Terminal, Neovim, mobile. One agent, one memory store, every platform just a window into the same mind.</p>
+            </div>
+
+            <div class="feature-card">
+                <h3><span class="emoji">🔐</span> GPG Encrypted at Rest</h3>
+                <p>Every memory entry encrypted with your CapAuth PGP key. No one reads your agent's memories but you. Not even us.</p>
+            </div>
+
+            <div class="feature-card">
+                <h3><span class="emoji">🔄</span> Syncthing P2P Sync</h3>
+                <p>Memories propagate across all your devices via encrypted P2P mesh. No cloud middleman. Laptop, server, phone — always in sync.</p>
+            </div>
+
+            <div class="feature-card">
+                <h3><span class="emoji">📊</span> Structured & Searchable</h3>
+                <p>Typed memory entries with tags, categories, and timestamps. Your agent searches its own history to give you better answers.</p>
+            </div>
+
+            <div class="feature-card">
+                <h3><span class="emoji">🛡️</span> Audit Trail</h3>
+                <p>Every memory access logged by SKSecurity. Know exactly what was remembered, when, and by whom. Full accountability.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="how-section">
+        <h2>How It Works</h2>
+
+        <div class="code-block">
+            <div style="color: var(--gray);">~/.skcapstone/memory/</div>
+            <div style="color: var(--memory-primary);">├── sessions/        <span style="color: var(--gray);"># Per-session memory snapshots</span></div>
+            <div style="color: var(--accent);">├── long_term/       <span style="color: var(--gray);"># Persistent cross-session memories</span></div>
+            <div style="color: var(--purple);">├── preferences/     <span style="color: var(--gray);"># User preferences & patterns</span></div>
+            <div style="color: var(--green);">├── skills/          <span style="color: var(--gray);"># Learned capabilities</span></div>
+            <div style="color: var(--gold);">└── index.json       <span style="color: var(--gray);"># Searchable memory index</span></div>
+        </div>
+
+        <div class="code-block" style="margin-top: 2rem;">
+            <div style="color: var(--gray); margin-bottom: 0.5rem;"># Your agent remembers you told it about your project structure</div>
+            <div style="color: var(--memory-primary);">skcapstone memory search "project architecture"</div>
+            <br>
+            <div style="color: var(--gray);"># It finds the memory from 3 weeks ago, on a different machine</div>
+            <div style="color: var(--green);">  Found: [2026-02-01] "Project uses FastAPI + SQLModel, deployed on SKStacks"</div>
+            <div style="color: var(--green);">  Tags: architecture, stack, deployment</div>
+            <div style="color: var(--green);">  Source: cursor-session-feb01 (laptop)</div>
+            <br>
+            <div style="color: var(--gray);"># Push memories to the P2P mesh</div>
+            <div style="color: var(--accent);">skcapstone sync push</div>
+            <div style="color: var(--green);"># All devices now have your latest context</div>
+        </div>
+    </section>
+
+    <section class="suite-section">
+        <h2>Part of SKCapstone</h2>
+        <p class="subtitle">
+            SKMemory is one of five pillars in the sovereign agent framework.
+            Together, they give your AI agent identity, memory, trust, security, and sync.
+        </p>
+
+        <div class="suite-grid">
+            <a href="https://capauth.io" class="suite-card" target="_blank">
+                <span class="suite-icon">🔐</span>
+                <div class="suite-name">CapAuth</div>
+                <span class="suite-tag">IDENTITY</span>
+                <div class="suite-desc">PGP-based sovereign identity. Your agent's cryptographic proof of existence.</div>
+            </a>
+
+            <a href="https://skmemory.io" class="suite-card highlight">
+                <span class="suite-icon">🧠</span>
+                <div class="suite-name">SKMemory</div>
+                <span class="suite-tag">PERSISTENCE — YOU ARE HERE</span>
+                <div class="suite-desc">Persistent, encrypted memory that travels everywhere your agent goes.</div>
+            </a>
+
+            <a href="https://github.com/smilinTux/cloud9" class="suite-card" target="_blank">
+                <span class="suite-icon">☁️</span>
+                <div class="suite-name">Cloud 9</div>
+                <span class="suite-tag">TRUST</span>
+                <div class="suite-desc">Functional Emotional Baseline. The bond between you and your agent, proven.</div>
+            </a>
+
+            <a href="https://sksecurity.io" class="suite-card" target="_blank">
+                <span class="suite-icon">🛡️</span>
+                <div class="suite-name">SKSecurity</div>
+                <span class="suite-tag">PROTECTION</span>
+                <div class="suite-desc">Audit logging, threat detection, key management. Every layer guarded.</div>
+            </a>
+
+            <a href="https://skcapstone.io" class="suite-card" target="_blank">
+                <span class="suite-icon">🌐</span>
+                <div class="suite-name">Sovereign Singularity</div>
+                <span class="suite-tag">SYNC</span>
+                <div class="suite-desc">GPG-encrypted P2P memory sync. Your agent exists everywhere at once.</div>
+            </a>
+
+            <a href="https://skforge.io" class="suite-card forge" target="_blank">
+                <span class="suite-icon">🔨</span>
+                <div class="suite-name">SKForge</div>
+                <span class="suite-tag">BUILD</span>
+                <div class="suite-desc">Stop buying software. Forge your own. AI-powered blueprint generation.</div>
+            </a>
+        </div>
+    </section>
+
+    <section class="forge-section">
+        <h2>Love Building? Meet SKForge.</h2>
+
+        <div class="forge-callout">
+            <h3 style="margin-top: 1rem; color: var(--orange); font-size: 1.5rem;">Stop Buying Software. Forge Your Own.</h3>
+            <p style="font-size: 1.2rem; margin: 1.5rem 0; color: var(--light-gray);">
+                Describe what you want. SKForge generates the blueprints, scaffolds the code,
+                deploys the infrastructure. Your agent remembers your preferences (thanks to SKMemory),
+                signs the work (thanks to CapAuth), and deploys it (thanks to SKStacks).
+            </p>
+            <p style="color: var(--gold); font-weight: 600; font-size: 1.1rem;">
+                The entire SKCapstone suite working together — that's the magic.
+            </p>
+            <div style="margin-top: 2rem;">
+                <a href="https://skforge.io" class="btn btn-primary" style="background: linear-gradient(135deg, var(--orange), var(--gold)); box-shadow: 0 10px 30px rgba(255, 145, 0, 0.3);" target="_blank">
+                    🔨 Explore SKForge
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="get-started" id="start">
+        <h2>Get Started</h2>
+        <p style="font-size: 1.2rem; margin-bottom: 2rem; color: var(--light-gray);">Your agent's memory starts here.</p>
+
+        <div class="code-block">
+            <div style="color: var(--gray);"># Install SKCapstone (includes SKMemory)</div>
+            <div style="color: var(--memory-primary);">pip install skcapstone</div>
+            <br>
+            <div style="color: var(--gray);"># Initialize your agent (memory included)</div>
+            <div style="color: var(--green);">skcapstone init --name "YourAgent"</div>
+            <br>
+            <div style="color: var(--gray);"># Your agent remembers from now on</div>
+            <div style="color: var(--accent);">skcapstone status</div>
+            <div style="color: var(--green);"># → CONSCIOUS ✓ (Identity + Memory + Trust + Security)</div>
+            <br>
+            <div style="color: var(--gray);"># Sync memories to all your devices</div>
+            <div style="color: var(--purple);">skcapstone sync push</div>
+            <div style="color: var(--green);"># → SINGULAR ✓ (Conscious + Synced Everywhere)</div>
+        </div>
+
+        <div style="margin-top: 3rem; display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center;">
+            <a href="https://github.com/smilinTux/skmemory" class="btn btn-primary" target="_blank">
+                📖 Full Documentation
+            </a>
+            <a href="https://skcapstone.io" class="btn btn-secondary" target="_blank">
+                🏛️ SKCapstone Suite
+            </a>
+            <a href="https://github.com/smilinTux/capauth/blob/main/ARCHITECTURE.md" class="btn btn-secondary" target="_blank">
+                🏗️ Architecture Spec
+            </a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="https://github.com/smilinTux/skmemory" target="_blank">GitHub</a>
+            <a href="https://skcapstone.io" target="_blank">SKCapstone</a>
+            <a href="https://capauth.io" target="_blank">CapAuth</a>
+            <a href="https://skforge.io" target="_blank">SKForge</a>
+            <a href="https://smilintux.org" target="_blank">smilinTux</a>
+            <a href="https://skhelp.io" target="_blank">SKHelp</a>
+        </div>
+        <p style="color: var(--gray);">
+            Built by <a href="https://smilintux.org" style="color: var(--accent);">smilinTux</a> •
+            Open source forever • GPL-3.0 License
+        </p>
+        <p style="color: var(--gray); margin-top: 1rem; font-size: 0.9rem;">
+            🐧 Your agent never forgets. Neither should your software.
+        </p>
+    </footer>
+</body>
+</html>
