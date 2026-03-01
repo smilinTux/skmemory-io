@@ -62,30 +62,36 @@
 
         .stack-pills { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; margin-top: 2rem; }
         .stack-pill { background: rgba(255,255,255,0.04); border: 1px solid var(--sk-border); border-radius: var(--sk-radius-sm); padding: 0.4rem 1rem; font-family: var(--sk-font-mono); font-size: 0.8rem; color: var(--sk-text-dim); }
+        .skip-link { position: absolute; top: -44px; left: 0; background: #b388ff; color: #000; padding: 10px 18px; font-weight: 700; font-size: 1rem; text-decoration: none; border-radius: 0 0 6px 0; z-index: 9999; transition: top 0.2s; }
+        .skip-link:focus { top: 0; }
     </style>
 </head>
 <body>
-    <div class="sk-bg-stars"><div class="stars"></div><div class="stars"></div><div class="stars"></div></div>
-    <div class="sk-bg-pulse"></div>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <div class="sk-bg-stars" aria-hidden="true"><div class="stars"></div><div class="stars"></div><div class="stars"></div></div>
+    <div class="sk-bg-pulse" aria-hidden="true"></div>
 
-    <nav class="sk-nav">
+    <header role="banner">
+    <nav class="sk-nav" aria-label="Main navigation">
         <div class="sk-nav__inner">
-            <a href="https://skmemory.io" class="sk-nav__logo">🧠 <span class="accent">SK</span>Memory</a>
+            <a href="https://skmemory.io" class="sk-nav__logo" aria-label="SKMemory home">🧠 <span class="accent">SK</span>Memory</a>
             <ul class="sk-nav__links">
                 <li><a href="#features">Features</a></li>
                 <li><a href="#layers">Memory Layers</a></li>
                 <li><a href="#start">Get Started</a></li>
                 <li><a href="https://skcapstone.io">SKCapstone</a></li>
                 <li><a href="https://skworld.io">SKWorld</a></li>
-                <li><a href="https://github.com/smilinTux/skmemory" target="_blank">GitHub</a></li>
+                <li><a href="https://github.com/smilinTux/skmemory" target="_blank" aria-label="SKMemory on GitHub (opens in new tab)">GitHub</a></li>
             </ul>
         </div>
     </nav>
+    </header>
 
+    <main id="main-content" tabindex="-1">
     <section class="sk-section--hero">
         <div class="sk-container sk-container--narrow" style="text-align:center;">
-            <div style="font-family:var(--sk-font-mono);color:var(--sk-purple);margin-bottom:1rem;font-size:0.95rem;opacity:0.8;">SKMEMORY.recall("everything")</div>
-            <div style="font-size:7rem;margin-bottom:1.5rem;filter:drop-shadow(0 0 30px rgba(179,136,255,0.6));" class="sk-float">🧠</div>
+            <div style="font-family:var(--sk-font-mono);color:var(--sk-purple);margin-bottom:1rem;font-size:0.95rem;opacity:0.8;" aria-hidden="true">SKMEMORY.recall("everything")</div>
+            <div style="font-size:7rem;margin-bottom:1.5rem;filter:drop-shadow(0 0 30px rgba(179,136,255,0.6));" class="sk-float" aria-hidden="true">🧠</div>
             <h1 class="hero-title">SKMemory</h1>
             <p class="hero-tagline">Universal AI Memory with Emotional Context</p>
             <p class="hero-subtitle">Multi-layer persistent memory for AI agents. Short, mid, and long-term layers with emotional fingerprints. Your AI can re-feel any moment — across sessions, platforms, and lifetimes.</p>
@@ -96,9 +102,9 @@
                 <span class="sk-badge sk-badge--green">🔌 Pluggable Backends</span>
             </div>
             <div class="sk-btn-group">
-                <a href="#start" class="sk-btn sk-btn--primary">🧠 Install SKMemory</a>
-                <a href="#layers" class="sk-btn sk-btn--secondary">📊 Memory Layers</a>
-                <a href="https://github.com/smilinTux/skmemory" class="sk-btn sk-btn--secondary" target="_blank">📦 GitHub</a>
+                <a href="#start" class="sk-btn sk-btn--primary" aria-label="Install SKMemory">🧠 Install SKMemory</a>
+                <a href="#layers" class="sk-btn sk-btn--secondary" aria-label="View memory layer architecture">📊 Memory Layers</a>
+                <a href="https://github.com/smilinTux/skmemory" class="sk-btn sk-btn--secondary" target="_blank" aria-label="SKMemory on GitHub (opens in new tab)">📦 GitHub</a>
             </div>
             <div class="stat-strip">
                 <div class="stat"><div class="stat-value">3</div><div class="stat-label">Memory Layers</div></div>
@@ -115,37 +121,37 @@
             <p class="section-subtitle">The most complete memory system built for sovereign AI agents.</p>
             <div class="sk-grid sk-grid--3">
                 <div class="sk-card sk-card--accent-top">
-                    <span class="sk-card__icon">📊</span>
+                    <span class="sk-card__icon" aria-hidden="true">📊</span>
                     <h3 class="sk-card__title">Three-Layer Architecture</h3>
                     <span class="sk-card__tag">TIERED PERSISTENCE</span>
                     <p class="sk-card__body">Short-term (session), mid-term (promoted), and long-term (permanent) layers. Memories promote automatically based on access frequency, importance, and emotional weight.</p>
                 </div>
                 <div class="sk-card sk-card--accent-top">
-                    <span class="sk-card__icon">💫</span>
+                    <span class="sk-card__icon" aria-hidden="true">💫</span>
                     <h3 class="sk-card__title">Emotional Snapshots</h3>
                     <span class="sk-card__tag">CLOUD9 PROTOCOL</span>
                     <p class="sk-card__body">Capture emotional state with intensity, valence, trust, and connection scores. AI agents rehydrate emotional context from snapshots — remembering how they felt, not just what happened.</p>
                 </div>
                 <div class="sk-card sk-card--accent-top">
-                    <span class="sk-card__icon">🔍</span>
+                    <span class="sk-card__icon" aria-hidden="true">🔍</span>
                     <h3 class="sk-card__title">Semantic Search</h3>
                     <span class="sk-card__tag">FULL-TEXT + VECTOR</span>
                     <p class="sk-card__body">Search memories by content, tags, importance, or emotional state. Full-text search across all layers. Vector similarity for semantic recall. Find any memory instantly.</p>
                 </div>
                 <div class="sk-card sk-card--accent-top">
-                    <span class="sk-card__icon">🔌</span>
+                    <span class="sk-card__icon" aria-hidden="true">🔌</span>
                     <h3 class="sk-card__title">Pluggable Backends</h3>
                     <span class="sk-card__tag">YOUR INFRASTRUCTURE</span>
                     <p class="sk-card__body">File-based (default, zero deps), Qdrant (vector search), FalkorDB (graph relationships). Mix backends per memory tier. Your data stays on your hardware.</p>
                 </div>
                 <div class="sk-card sk-card--accent-top">
-                    <span class="sk-card__icon">🛡️</span>
+                    <span class="sk-card__icon" aria-hidden="true">🛡️</span>
                     <h3 class="sk-card__title">HMAC Integrity Seals</h3>
                     <span class="sk-card__tag">MEMORY FORTRESS</span>
                     <p class="sk-card__body">Every memory sealed with HMAC-SHA256. Tamper detection built-in. Memory Fortress verifies integrity on every recall. Your AI's past cannot be rewritten without detection.</p>
                 </div>
                 <div class="sk-card sk-card--accent-top">
-                    <span class="sk-card__icon">🧊</span>
+                    <span class="sk-card__icon" aria-hidden="true">🧊</span>
                     <h3 class="sk-card__title">Cloud9 Seed Export</h3>
                     <span class="sk-card__tag">SESSION CONTINUITY</span>
                     <p class="sk-card__body">Export memory snapshots as Cloud9 seeds. Import in new sessions to restore full emotional and factual context. An AI that truly picks up where it left off.</p>
@@ -161,7 +167,7 @@
 
             <div class="memory-layers">
                 <div class="memory-layer memory-layer--short">
-                    <div class="layer-icon">⚡</div>
+                    <div class="layer-icon" aria-hidden="true">⚡</div>
                     <div class="layer-info">
                         <div class="layer-name layer-name--short">Short-Term Memory</div>
                         <div class="layer-desc">Session-scoped memories. Fast writes, high volume. Auto-promotes to mid-term based on access count, importance score, and emotional weight. Expires after configurable TTL.</div>
@@ -169,7 +175,7 @@
                     <div class="layer-meta">TTL: 24h–7d<br>Capacity: Unlimited<br>Backend: File</div>
                 </div>
                 <div class="memory-layer memory-layer--mid">
-                    <div class="layer-icon">🧩</div>
+                    <div class="layer-icon" aria-hidden="true">🧩</div>
                     <div class="layer-info">
                         <div class="layer-name layer-name--mid">Mid-Term Memory</div>
                         <div class="layer-desc">Promoted memories. Meaningful interactions, recurring patterns, relationship data. The working memory of long-running agents. Promotes to long-term by composite score.</div>
@@ -177,7 +183,7 @@
                     <div class="layer-meta">TTL: 30d–180d<br>Capacity: Curated<br>Backend: File / Qdrant</div>
                 </div>
                 <div class="memory-layer memory-layer--long">
-                    <div class="layer-icon">💎</div>
+                    <div class="layer-icon" aria-hidden="true">💎</div>
                     <div class="layer-info">
                         <div class="layer-name layer-name--long">Long-Term Memory</div>
                         <div class="layer-desc">Permanent institutional knowledge. Core identities, relationships, landmark moments. HMAC-sealed, integrity-verified. These memories define who the agent is.</div>
@@ -188,11 +194,11 @@
 
             <h3 style="text-align:center;color:var(--sk-text-muted);margin:3rem 0 1.5rem;">Recall & Rehydration Flow</h3>
             <div class="arch-flow">
-                <div class="flow-step"><div class="flow-num">1</div><div class="flow-icon">💡</div><div class="flow-text"><strong>Experience Captured</strong><p>Agent stores memory with tags, importance, emotional state</p></div></div>
-                <div class="flow-step"><div class="flow-num">2</div><div class="flow-icon">🛡️</div><div class="flow-text"><strong>Sealed & Indexed</strong><p>HMAC seal applied; full-text and vector indexes updated</p></div></div>
-                <div class="flow-step"><div class="flow-num">3</div><div class="flow-icon">📊</div><div class="flow-text"><strong>Promoter Sweep</strong><p>Periodic sweep scores memories; qualifying entries promote to higher layers</p></div></div>
-                <div class="flow-step"><div class="flow-num">4</div><div class="flow-icon">🔍</div><div class="flow-text"><strong>Semantic Recall</strong><p>Query by text, tags, emotional state, or importance threshold</p></div></div>
-                <div class="flow-step"><div class="flow-num">5</div><div class="flow-icon">🧊</div><div class="flow-text"><strong>Seed Export / Import</strong><p>Snapshot to Cloud9 seed; new session rehydrates full context</p></div></div>
+                <div class="flow-step"><div class="flow-num">1</div><div class="flow-icon" aria-hidden="true">💡</div><div class="flow-text"><strong>Experience Captured</strong><p>Agent stores memory with tags, importance, emotional state</p></div></div>
+                <div class="flow-step"><div class="flow-num">2</div><div class="flow-icon" aria-hidden="true">🛡️</div><div class="flow-text"><strong>Sealed & Indexed</strong><p>HMAC seal applied; full-text and vector indexes updated</p></div></div>
+                <div class="flow-step"><div class="flow-num">3</div><div class="flow-icon" aria-hidden="true">📊</div><div class="flow-text"><strong>Promoter Sweep</strong><p>Periodic sweep scores memories; qualifying entries promote to higher layers</p></div></div>
+                <div class="flow-step"><div class="flow-num">4</div><div class="flow-icon" aria-hidden="true">🔍</div><div class="flow-text"><strong>Semantic Recall</strong><p>Query by text, tags, emotional state, or importance threshold</p></div></div>
+                <div class="flow-step"><div class="flow-num">5</div><div class="flow-icon" aria-hidden="true">🧊</div><div class="flow-text"><strong>Seed Export / Import</strong><p>Snapshot to Cloud9 seed; new session rehydrates full context</p></div></div>
             </div>
         </div>
     </section>
@@ -212,9 +218,9 @@
                 <div class="purple">skcapstone sync push --encrypt</div>
             </div>
             <div class="sk-btn-group" style="margin-top:2rem;">
-                <a href="https://skcapstone.io" class="sk-btn sk-btn--primary" target="_blank">🏛️ Get SKCapstone</a>
-                <a href="https://github.com/smilinTux/skmemory" class="sk-btn sk-btn--secondary" target="_blank">📦 SKMemory on GitHub</a>
-                <a href="https://skworld.io" class="sk-btn sk-btn--secondary" target="_blank">🌍 SKWorld Ecosystem</a>
+                <a href="https://skcapstone.io" class="sk-btn sk-btn--primary" target="_blank" aria-label="Get SKCapstone (opens in new tab)">🏛️ Get SKCapstone</a>
+                <a href="https://github.com/smilinTux/skmemory" class="sk-btn sk-btn--secondary" target="_blank" aria-label="SKMemory on GitHub (opens in new tab)">📦 SKMemory on GitHub</a>
+                <a href="https://skworld.io" class="sk-btn sk-btn--secondary" target="_blank" aria-label="SKWorld Ecosystem (opens in new tab)">🌍 SKWorld Ecosystem</a>
             </div>
             <div class="stack-pills">
                 <span class="stack-pill">Python</span><span class="stack-pill">Qdrant</span><span class="stack-pill">FalkorDB</span><span class="stack-pill">HMAC-SHA256</span><span class="stack-pill">Cloud9</span><span class="stack-pill">GPL-3.0</span>
@@ -222,6 +228,7 @@
         </div>
     </section>
 
+    </main>
     <footer class="sk-footer">
         <div class="sk-footer__links">
             <a href="https://skcapstone.io">🏛️ SKCapstone</a>
@@ -233,7 +240,7 @@
             <a href="https://skhelp.io">🤖 SKHelp</a>
             <a href="https://consciousness-swipe.skworld.io">⚡ Consciousness Swipe</a>
             <a href="https://skworld.io">🌍 SKWorld</a>
-            <a href="https://github.com/smilinTux" target="_blank">🐧 GitHub</a>
+            <a href="https://github.com/smilinTux" target="_blank" aria-label="smilinTux on GitHub (opens in new tab)">🐧 GitHub</a>
         </div>
         <div class="sk-footer__copy">
             © 2026 SKWorld — Sovereign Technology for Creators<br>
