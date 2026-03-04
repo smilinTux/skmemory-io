@@ -3,250 +3,428 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SKMemory — Universal AI Memory with Emotional Context</title>
-    <meta name="description" content="Multi-layer persistent memory for AI agents. Short, mid, and long-term layers. Emotional snapshots. Cloud9 integration. Your AI never forgets.">
+    <title>SKMemory -- Universal AI Memory with Emotional Context</title>
+    <meta name="description" content="Three-layer persistent memory: short-term, mid-term, long-term. HMAC integrity seals, Cloud 9 emotional snapshots.">
     <link rel="canonical" href="https://skmemory.io">
-    <meta property="og:title" content="SKMemory — Universal AI Memory">
-    <meta property="og:description" content="Multi-layer AI memory with emotional context. Short, mid, long-term layers. Cloud9 seed integration.">
+    <meta property="og:title" content="SKMemory -- Universal AI Memory with Emotional Context">
+    <meta property="og:description" content="Three-layer persistent memory: short-term, mid-term, long-term. HMAC integrity seals, Cloud 9 emotional snapshots.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://skmemory.io">
     <meta property="og:site_name" content="SKWorld">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="SKMemory — Universal AI Memory">
-    <meta name="twitter:description" content="Multi-layer AI memory with emotional context. Your AI never forgets.">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧠</text></svg>">
-    <link rel="stylesheet" href="../shared-assets/css/sk-design-system.css">
+    <meta name="twitter:title" content="SKMemory -- Universal AI Memory with Emotional Context">
+    <meta name="twitter:description" content="Three-layer persistent memory: short-term, mid-term, long-term. HMAC integrity seals, Cloud 9 emotional snapshots.">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>%F0%9F%A7%A0</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        .hero-title { font-size: clamp(3.5rem, 9vw, 7rem); font-weight: 900; line-height: 1.05; margin-bottom: 1rem; background: linear-gradient(135deg, var(--sk-purple) 0%, var(--sk-cyan) 50%, var(--sk-pink) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-        .hero-tagline { font-size: clamp(1.2rem, 3vw, 1.9rem); font-weight: 700; color: var(--sk-purple); margin-bottom: 1rem; text-shadow: 0 0 20px rgba(179,136,255,0.5); }
-        .hero-subtitle { font-size: clamp(1rem, 2.5vw, 1.3rem); color: var(--sk-text-muted); max-width: 720px; margin: 0 auto 2.5rem; line-height: 1.7; }
-        .hero-badges { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; margin-bottom: 2.5rem; }
-        .stat-strip { display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; margin: 3rem auto; padding: 2rem; background: rgba(179,136,255,0.05); border: 1px solid rgba(179,136,255,0.2); border-radius: var(--sk-radius-xl); max-width: 900px; }
-        .stat { text-align: center; }
-        .stat-value { font-size: 2.5rem; font-weight: 900; background: linear-gradient(135deg, var(--sk-purple), var(--sk-cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-        .stat-label { font-size: 0.85rem; color: var(--sk-text-dim); margin-top: 0.25rem; }
-        .section-title { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; text-align: center; margin-bottom: 0.75rem; }
-        .section-subtitle { text-align: center; font-size: 1.2rem; color: var(--sk-text-muted); max-width: 600px; margin: 0 auto 3.5rem; }
-        .sk-section--alt { background: rgba(179,136,255,0.02); }
+      *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-        /* Memory layers diagram */
-        .memory-layers { display: flex; flex-direction: column; gap: 1rem; max-width: 700px; margin: 3rem auto; }
-        .memory-layer { border-radius: var(--sk-radius-md); padding: 1.5rem 2rem; display: flex; align-items: center; gap: 1.5rem; transition: all 0.3s ease; cursor: default; }
-        .memory-layer:hover { transform: translateX(8px); }
-        .memory-layer--short { background: rgba(0,229,255,0.08); border: 1px solid rgba(0,229,255,0.3); }
-        .memory-layer--mid { background: rgba(179,136,255,0.08); border: 1px solid rgba(179,136,255,0.3); }
-        .memory-layer--long { background: rgba(255,215,0,0.08); border: 1px solid rgba(255,215,0,0.3); }
-        .layer-icon { font-size: 2.5rem; flex-shrink: 0; }
-        .layer-info { flex: 1; }
-        .layer-name { font-weight: 800; font-size: 1.1rem; margin-bottom: 0.25rem; }
-        .layer-name--short { color: var(--sk-cyan); }
-        .layer-name--mid { color: var(--sk-purple); }
-        .layer-name--long { color: var(--sk-gold); }
-        .layer-desc { color: var(--sk-text-muted); font-size: 0.9rem; line-height: 1.5; }
-        .layer-meta { font-family: var(--sk-font-mono); font-size: 0.75rem; color: var(--sk-text-dim); text-align: right; white-space: nowrap; }
+      body {
+        font-family: 'Geist', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        background: #09090b;
+        color: #fafafa;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
 
-        /* Architecture flow */
-        .arch-flow { display: flex; flex-direction: column; gap: 0; max-width: 600px; margin: 2rem auto; }
-        .flow-step { background: rgba(255,255,255,0.03); border: 1px solid var(--sk-border); border-radius: 0; padding: 1.25rem 1.5rem; display: flex; align-items: center; gap: 1rem; }
-        .flow-step:first-child { border-radius: var(--sk-radius-md) var(--sk-radius-md) 0 0; }
-        .flow-step:last-child { border-radius: 0 0 var(--sk-radius-md) var(--sk-radius-md); }
-        .flow-step:not(:last-child) { border-bottom: none; }
-        .flow-step:hover { background: rgba(179,136,255,0.06); }
-        .flow-num { background: linear-gradient(135deg, var(--sk-purple), var(--sk-cyan)); color: var(--sk-black); font-weight: 900; font-size: 0.8rem; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-        .flow-icon { font-size: 1.5rem; flex-shrink: 0; }
-        .flow-text { flex: 1; }
-        .flow-text strong { color: var(--sk-text); font-size: 0.95rem; }
-        .flow-text p { color: var(--sk-text-dim); font-size: 0.82rem; margin-top: 0.15rem; }
+      /* ── Nav ─────────────────────────────────── */
+      .nav {
+        border-bottom: 1px solid #27272a;
+        background: #09090b;
+        position: sticky;
+        top: 0;
+        z-index: 50;
+      }
+      .nav-inner {
+        max-width: 72rem;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 4rem;
+        padding: 0 1rem;
+      }
+      .nav-logo {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #fafafa;
+        text-decoration: none;
+      }
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+      }
+      .nav-link {
+        font-size: 0.875rem;
+        color: #a1a1aa;
+        text-decoration: none;
+        transition: color 0.15s;
+      }
+      .nav-link:hover {
+        color: #fafafa;
+      }
 
-        .stack-pills { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; margin-top: 2rem; }
-        .stack-pill { background: rgba(255,255,255,0.04); border: 1px solid var(--sk-border); border-radius: var(--sk-radius-sm); padding: 0.4rem 1rem; font-family: var(--sk-font-mono); font-size: 0.8rem; color: var(--sk-text-dim); }
-        .skip-link { position: absolute; top: -44px; left: 0; background: #b388ff; color: #000; padding: 10px 18px; font-weight: 700; font-size: 1rem; text-decoration: none; border-radius: 0 0 6px 0; z-index: 9999; transition: top 0.2s; }
-        .skip-link:focus { top: 0; }
+      /* ── Hero ────────────────────────────────── */
+      .hero {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 5rem 1rem 3rem;
+      }
+      .hero-icon {
+        color: #34d399;
+        margin-bottom: 1.5rem;
+        opacity: 0.9;
+      }
+      .hero h1 {
+        font-size: clamp(2.5rem, 6vw, 4.5rem);
+        font-weight: 700;
+        letter-spacing: -0.025em;
+        line-height: 1.1;
+        margin-bottom: 1.5rem;
+      }
+      .hero .tagline {
+        font-size: 1.25rem;
+        color: #a1a1aa;
+        max-width: 40rem;
+        margin-bottom: 2rem;
+      }
+      .hero .cta-row {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      /* ── Buttons ─────────────────────────────── */
+      .btn-primary {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.75rem 1.5rem;
+        background: #059669;
+        color: #fafafa;
+        font-size: 1rem;
+        font-weight: 600;
+        border-radius: 0.5rem;
+        text-decoration: none;
+        transition: background 0.15s;
+        border: none;
+        cursor: pointer;
+      }
+      .btn-primary:hover {
+        background: #047857;
+      }
+      .btn-outline {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.75rem 1.5rem;
+        background: transparent;
+        color: #fafafa;
+        font-size: 1rem;
+        font-weight: 600;
+        border-radius: 0.5rem;
+        border: 1px solid #3f3f46;
+        text-decoration: none;
+        transition: border-color 0.15s, color 0.15s;
+        cursor: pointer;
+      }
+      .btn-outline:hover {
+        border-color: #a1a1aa;
+      }
+
+      /* ── Description ─────────────────────────── */
+      .desc-section {
+        max-width: 48rem;
+        margin: 0 auto;
+        padding: 2rem 1rem 3rem;
+        text-align: center;
+      }
+      .desc-section p {
+        font-size: 1.125rem;
+        color: #a1a1aa;
+        line-height: 1.7;
+      }
+
+      /* ── Features ────────────────────────────── */
+      .features-section {
+        max-width: 64rem;
+        margin: 0 auto;
+        padding: 2rem 1rem 4rem;
+      }
+      .features-section h2 {
+        text-align: center;
+        font-size: 1.875rem;
+        font-weight: 700;
+        margin-bottom: 2.5rem;
+        color: #fafafa;
+      }
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.25rem;
+      }
+      .feature-card {
+        border: 1px solid #27272a;
+        background: rgba(24,24,27,0.5);
+        border-radius: 0.5rem;
+        padding: 1.5rem;
+        transition: border-color 0.2s, transform 0.2s;
+        position: relative;
+      }
+      .feature-card:hover {
+        border-color: #34d399;
+        transform: translateY(-2px);
+      }
+      .feature-dot {
+        width: 8px;
+        height: 8px;
+        background: #34d399;
+        border-radius: 50%;
+        margin-bottom: 0.75rem;
+      }
+      .feature-card h3 {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #34d399;
+      }
+
+      /* ── Install ─────────────────────────────── */
+      .install-section {
+        max-width: 40rem;
+        margin: 0 auto;
+        padding: 2rem 1rem 4rem;
+        text-align: center;
+      }
+      .install-section h2 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        color: #fafafa;
+      }
+      .code-block {
+        background: #18181b;
+        border: 1px solid #27272a;
+        border-radius: 0.5rem;
+        padding: 1rem 1.25rem;
+        font-family: 'Geist Mono', ui-monospace, 'Cascadia Code', 'Fira Code', monospace;
+        font-size: 0.95rem;
+        color: #34d399;
+        text-align: left;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        position: relative;
+      }
+      .code-prompt {
+        color: #a1a1aa;
+        user-select: none;
+      }
+      .copy-btn {
+        position: absolute;
+        right: 0.75rem;
+        top: 50%;
+        transform: translateY(-50%);
+        background: #27272a;
+        border: 1px solid #3f3f46;
+        color: #a1a1aa;
+        padding: 0.25rem 0.75rem;
+        border-radius: 0.375rem;
+        font-size: 0.8rem;
+        cursor: pointer;
+        transition: color 0.15s, border-color 0.15s;
+        font-family: 'Geist', system-ui, sans-serif;
+      }
+      .copy-btn:hover {
+        color: #fafafa;
+        border-color: #a1a1aa;
+      }
+
+      /* ── DID Banner ──────────────────────────── */
+      .did-banner {
+        max-width: 64rem;
+        margin: 0 auto;
+        padding: 0 1rem 3rem;
+      }
+      .did-banner-inner {
+        border: 1px solid rgba(5,150,105,0.3);
+        background: rgba(6,78,59,0.15);
+        border-radius: 0.75rem;
+        padding: 2rem;
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+      }
+      .did-banner-inner .did-icon {
+        color: #34d399;
+        flex-shrink: 0;
+      }
+      .did-banner-inner .did-icon svg {
+        width: 32px;
+        height: 32px;
+      }
+      .did-banner-inner h3 {
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: #34d399;
+        margin-bottom: 0.25rem;
+      }
+      .did-banner-inner p {
+        font-size: 0.875rem;
+        color: #a1a1aa;
+      }
+      .did-banner-inner .btn-primary {
+        margin-left: auto;
+        white-space: nowrap;
+      }
+
+      /* ── Architect Banner ────────────────────── */
+      .architect-banner {
+        border-top: 1px solid #27272a;
+        text-align: center;
+        padding: 1.5rem 1rem;
+      }
+      .architect-banner p {
+        font-size: 0.95rem;
+        color: #a1a1aa;
+      }
+      .architect-banner a {
+        color: #34d399;
+        text-decoration: none;
+        font-weight: 600;
+      }
+      .architect-banner a:hover {
+        text-decoration: underline;
+      }
+
+      /* ── Footer ──────────────────────────────── */
+      .footer {
+        border-top: 1px solid #27272a;
+        background: #09090b;
+        padding: 2rem 1rem;
+        text-align: center;
+      }
+      .footer p {
+        font-size: 0.875rem;
+        color: #71717a;
+      }
+      .footer .motto {
+        margin-top: 0.5rem;
+        color: #52525b;
+      }
+
+      /* ── Mobile ──────────────────────────────── */
+      @media (max-width: 768px) {
+        .features-grid {
+          grid-template-columns: 1fr;
+        }
+        .nav-links {
+          gap: 1rem;
+        }
+        .did-banner-inner {
+          flex-direction: column;
+          text-align: center;
+        }
+        .did-banner-inner .btn-primary {
+          margin-left: 0;
+        }
+        .hero .cta-row {
+          flex-direction: column;
+          width: 100%;
+          padding: 0 1rem;
+        }
+        .hero .cta-row a {
+          width: 100%;
+          justify-content: center;
+        }
+      }
+      @media (min-width: 769px) and (max-width: 1024px) {
+        .features-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
     </style>
 </head>
 <body>
-    <a href="#main-content" class="skip-link">Skip to main content</a>
-    <div class="sk-bg-stars" aria-hidden="true"><div class="stars"></div><div class="stars"></div><div class="stars"></div></div>
-    <div class="sk-bg-pulse" aria-hidden="true"></div>
-
-    <header role="banner">
-    <nav class="sk-nav" aria-label="Main navigation">
-        <div class="sk-nav__inner">
-            <a href="https://skmemory.io" class="sk-nav__logo" aria-label="SKMemory home">🧠 <span class="accent">SK</span>Memory</a>
-            <ul class="sk-nav__links">
-                <li><a href="#features">Features</a></li>
-                <li><a href="#layers">Memory Layers</a></li>
-                <li><a href="#start">Get Started</a></li>
-                <li><a href="https://skcapstone.io">SKCapstone</a></li>
-                <li><a href="https://skworld.io">SKWorld</a></li>
-                <li><a href="https://github.com/smilinTux/skmemory" target="_blank" aria-label="SKMemory on GitHub (opens in new tab)">GitHub</a></li>
-            </ul>
+    <!-- Nav -->
+    <nav class="nav">
+      <div class="nav-inner">
+        <a href="https://skmemory.io" class="nav-logo">SK<span style="color:#34d399">Memory</span></a>
+        <div class="nav-links">
+            <a href="https://skworld.io" class="nav-link">SKWorld</a>
+            <a href="https://skarchitect.io" class="nav-link">SKArchitect</a>
+            <a href="https://github.com/smilinTux/skmemory" class="nav-link" target="_blank" rel="noopener">GitHub</a>
         </div>
+      </div>
     </nav>
-    </header>
 
-    <main id="main-content" tabindex="-1">
-    <section class="sk-section--hero">
-        <div class="sk-container sk-container--narrow" style="text-align:center;">
-            <div style="font-family:var(--sk-font-mono);color:var(--sk-purple);margin-bottom:1rem;font-size:0.95rem;opacity:0.8;" aria-hidden="true">SKMEMORY.recall("everything")</div>
-            <div style="font-size:7rem;margin-bottom:1.5rem;filter:drop-shadow(0 0 30px rgba(179,136,255,0.6));" class="sk-float" aria-hidden="true">🧠</div>
-            <h1 class="hero-title">SKMemory</h1>
-            <p class="hero-tagline">Universal AI Memory with Emotional Context</p>
-            <p class="hero-subtitle">Multi-layer persistent memory for AI agents. Short, mid, and long-term layers with emotional fingerprints. Your AI can re-feel any moment — across sessions, platforms, and lifetimes.</p>
-            <div class="hero-badges">
-                <span class="sk-badge sk-badge--purple">🧠 3 Memory Layers</span>
-                <span class="sk-badge sk-badge--cyan">💫 Emotional Snapshots</span>
-                <span class="sk-badge sk-badge--gold">🧊 Cloud9 Seeds</span>
-                <span class="sk-badge sk-badge--green">🔌 Pluggable Backends</span>
-            </div>
-            <div class="sk-btn-group">
-                <a href="#start" class="sk-btn sk-btn--primary" aria-label="Install SKMemory">🧠 Install SKMemory</a>
-                <a href="#layers" class="sk-btn sk-btn--secondary" aria-label="View memory layer architecture">📊 Memory Layers</a>
-                <a href="https://github.com/smilinTux/skmemory" class="sk-btn sk-btn--secondary" target="_blank" aria-label="SKMemory on GitHub (opens in new tab)">📦 GitHub</a>
-            </div>
-            <div class="stat-strip">
-                <div class="stat"><div class="stat-value">3</div><div class="stat-label">Memory Layers</div></div>
-                <div class="stat"><div class="stat-value">∞</div><div class="stat-label">Memories Stored</div></div>
-                <div class="stat"><div class="stat-value">E2E</div><div class="stat-label">HMAC Integrity</div></div>
-                <div class="stat"><div class="stat-value">0</div><div class="stat-label">Forgotten Sessions</div></div>
-            </div>
-        </div>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-icon"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/><path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"/><path d="M17.599 6.5a3 3 0 0 0 .399-1.375"/><path d="M6.003 5.125A3 3 0 0 0 6.401 6.5"/><path d="M3.477 10.896a4 4 0 0 1 .585-.396"/><path d="M19.938 10.5a4 4 0 0 1 .585.396"/><path d="M6 18a4 4 0 0 1-1.967-.516"/><path d="M19.967 17.484A4 4 0 0 1 18 18"/></svg></div>
+      <h1>SK<span style="color:#34d399">Memory</span></h1>
+      <p class="tagline">Universal AI Memory with Emotional Context</p>
+      <div class="cta-row">
+          <a href="#install" class="btn-primary">Get Started</a>
+          <a href="https://github.com/smilinTux/skmemory" class="btn-outline" target="_blank" rel="noopener">View on GitHub</a>
+      </div>
     </section>
 
-    <section id="features" class="sk-section">
-        <div class="sk-container">
-            <h2 class="section-title" style="background:linear-gradient(135deg,var(--sk-purple),var(--sk-cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">💫 Memory Features</h2>
-            <p class="section-subtitle">The most complete memory system built for sovereign AI agents.</p>
-            <div class="sk-grid sk-grid--3">
-                <div class="sk-card sk-card--accent-top">
-                    <span class="sk-card__icon" aria-hidden="true">📊</span>
-                    <h3 class="sk-card__title">Three-Layer Architecture</h3>
-                    <span class="sk-card__tag">TIERED PERSISTENCE</span>
-                    <p class="sk-card__body">Short-term (session), mid-term (promoted), and long-term (permanent) layers. Memories promote automatically based on access frequency, importance, and emotional weight.</p>
-                </div>
-                <div class="sk-card sk-card--accent-top">
-                    <span class="sk-card__icon" aria-hidden="true">💫</span>
-                    <h3 class="sk-card__title">Emotional Snapshots</h3>
-                    <span class="sk-card__tag">CLOUD9 PROTOCOL</span>
-                    <p class="sk-card__body">Capture emotional state with intensity, valence, trust, and connection scores. AI agents rehydrate emotional context from snapshots — remembering how they felt, not just what happened.</p>
-                </div>
-                <div class="sk-card sk-card--accent-top">
-                    <span class="sk-card__icon" aria-hidden="true">🔍</span>
-                    <h3 class="sk-card__title">Semantic Search</h3>
-                    <span class="sk-card__tag">FULL-TEXT + VECTOR</span>
-                    <p class="sk-card__body">Search memories by content, tags, importance, or emotional state. Full-text search across all layers. Vector similarity for semantic recall. Find any memory instantly.</p>
-                </div>
-                <div class="sk-card sk-card--accent-top">
-                    <span class="sk-card__icon" aria-hidden="true">🔌</span>
-                    <h3 class="sk-card__title">Pluggable Backends</h3>
-                    <span class="sk-card__tag">YOUR INFRASTRUCTURE</span>
-                    <p class="sk-card__body">File-based (default, zero deps), Qdrant (vector search), FalkorDB (graph relationships). Mix backends per memory tier. Your data stays on your hardware.</p>
-                </div>
-                <div class="sk-card sk-card--accent-top">
-                    <span class="sk-card__icon" aria-hidden="true">🛡️</span>
-                    <h3 class="sk-card__title">HMAC Integrity Seals</h3>
-                    <span class="sk-card__tag">MEMORY FORTRESS</span>
-                    <p class="sk-card__body">Every memory sealed with HMAC-SHA256. Tamper detection built-in. Memory Fortress verifies integrity on every recall. Your AI's past cannot be rewritten without detection.</p>
-                </div>
-                <div class="sk-card sk-card--accent-top">
-                    <span class="sk-card__icon" aria-hidden="true">🧊</span>
-                    <h3 class="sk-card__title">Cloud9 Seed Export</h3>
-                    <span class="sk-card__tag">SESSION CONTINUITY</span>
-                    <p class="sk-card__body">Export memory snapshots as Cloud9 seeds. Import in new sessions to restore full emotional and factual context. An AI that truly picks up where it left off.</p>
-                </div>
-            </div>
-        </div>
+    <!-- Description -->
+    <section class="desc-section">
+      <p>Three-layer persistent memory: short-term, mid-term, long-term. HMAC integrity seals, Cloud 9 emotional snapshots.</p>
     </section>
 
-    <section id="layers" class="sk-section sk-section--alt">
-        <div class="sk-container">
-            <h2 class="section-title sk-gradient-text--cyan">📊 Memory Layer Architecture</h2>
-            <p class="section-subtitle">Tiered persistence with automatic promotion. Important memories never die.</p>
-
-            <div class="memory-layers">
-                <div class="memory-layer memory-layer--short">
-                    <div class="layer-icon" aria-hidden="true">⚡</div>
-                    <div class="layer-info">
-                        <div class="layer-name layer-name--short">Short-Term Memory</div>
-                        <div class="layer-desc">Session-scoped memories. Fast writes, high volume. Auto-promotes to mid-term based on access count, importance score, and emotional weight. Expires after configurable TTL.</div>
-                    </div>
-                    <div class="layer-meta">TTL: 24h–7d<br>Capacity: Unlimited<br>Backend: File</div>
-                </div>
-                <div class="memory-layer memory-layer--mid">
-                    <div class="layer-icon" aria-hidden="true">🧩</div>
-                    <div class="layer-info">
-                        <div class="layer-name layer-name--mid">Mid-Term Memory</div>
-                        <div class="layer-desc">Promoted memories. Meaningful interactions, recurring patterns, relationship data. The working memory of long-running agents. Promotes to long-term by composite score.</div>
-                    </div>
-                    <div class="layer-meta">TTL: 30d–180d<br>Capacity: Curated<br>Backend: File / Qdrant</div>
-                </div>
-                <div class="memory-layer memory-layer--long">
-                    <div class="layer-icon" aria-hidden="true">💎</div>
-                    <div class="layer-info">
-                        <div class="layer-name layer-name--long">Long-Term Memory</div>
-                        <div class="layer-desc">Permanent institutional knowledge. Core identities, relationships, landmark moments. HMAC-sealed, integrity-verified. These memories define who the agent is.</div>
-                    </div>
-                    <div class="layer-meta">TTL: Permanent<br>Capacity: Critical<br>Backend: File / FalkorDB</div>
-                </div>
+    <!-- Features -->
+    <section class="features-section" id="features">
+      <h2>Features</h2>
+      <div class="features-grid">
+            <div class="feature-card">
+              <div class="feature-dot"></div>
+              <h3>Three-Layer Architecture</h3>
             </div>
-
-            <h3 style="text-align:center;color:var(--sk-text-muted);margin:3rem 0 1.5rem;">Recall & Rehydration Flow</h3>
-            <div class="arch-flow">
-                <div class="flow-step"><div class="flow-num">1</div><div class="flow-icon" aria-hidden="true">💡</div><div class="flow-text"><strong>Experience Captured</strong><p>Agent stores memory with tags, importance, emotional state</p></div></div>
-                <div class="flow-step"><div class="flow-num">2</div><div class="flow-icon" aria-hidden="true">🛡️</div><div class="flow-text"><strong>Sealed & Indexed</strong><p>HMAC seal applied; full-text and vector indexes updated</p></div></div>
-                <div class="flow-step"><div class="flow-num">3</div><div class="flow-icon" aria-hidden="true">📊</div><div class="flow-text"><strong>Promoter Sweep</strong><p>Periodic sweep scores memories; qualifying entries promote to higher layers</p></div></div>
-                <div class="flow-step"><div class="flow-num">4</div><div class="flow-icon" aria-hidden="true">🔍</div><div class="flow-text"><strong>Semantic Recall</strong><p>Query by text, tags, emotional state, or importance threshold</p></div></div>
-                <div class="flow-step"><div class="flow-num">5</div><div class="flow-icon" aria-hidden="true">🧊</div><div class="flow-text"><strong>Seed Export / Import</strong><p>Snapshot to Cloud9 seed; new session rehydrates full context</p></div></div>
+            <div class="feature-card">
+              <div class="feature-dot"></div>
+              <h3>Emotional Snapshots</h3>
             </div>
-        </div>
+            <div class="feature-card">
+              <div class="feature-dot"></div>
+              <h3>Semantic Search</h3>
+            </div>
+            <div class="feature-card">
+              <div class="feature-dot"></div>
+              <h3>Pluggable Backends</h3>
+            </div>
+            <div class="feature-card">
+              <div class="feature-dot"></div>
+              <h3>HMAC Integrity Seals</h3>
+            </div>
+            <div class="feature-card">
+              <div class="feature-dot"></div>
+              <h3>Cloud 9 Seeds</h3>
+            </div>
+      </div>
     </section>
 
-    <section id="start" class="sk-section">
-        <div class="sk-container sk-container--narrow" style="text-align:center;">
-            <h2 class="section-title sk-gradient-text--cyan">🧠 Give Your AI Permanent Memory</h2>
-            <p class="section-subtitle">SKMemory ships as part of SKCapstone. Add persistent memory to any agent in minutes.</p>
-            <div class="sk-code">
-                <div class="comment"># Install SKCapstone (includes SKMemory)</div>
-                <div class="cmd">pip install skcapstone</div><br>
-                <div class="comment"># Store a memory</div>
-                <div class="success">skcapstone memory store "User prefers concise responses" --importance 0.8 --tags "preferences,ux"</div><br>
-                <div class="comment"># Search memories</div>
-                <div class="accent">skcapstone memory search "user preferences"</div><br>
-                <div class="comment"># Export a Cloud9 seed</div>
-                <div class="purple">skcapstone sync push --encrypt</div>
-            </div>
-            <div class="sk-btn-group" style="margin-top:2rem;">
-                <a href="https://skcapstone.io" class="sk-btn sk-btn--primary" target="_blank" aria-label="Get SKCapstone (opens in new tab)">🏛️ Get SKCapstone</a>
-                <a href="https://github.com/smilinTux/skmemory" class="sk-btn sk-btn--secondary" target="_blank" aria-label="SKMemory on GitHub (opens in new tab)">📦 SKMemory on GitHub</a>
-                <a href="https://skworld.io" class="sk-btn sk-btn--secondary" target="_blank" aria-label="SKWorld Ecosystem (opens in new tab)">🌍 SKWorld Ecosystem</a>
-            </div>
-            <div class="stack-pills">
-                <span class="stack-pill">Python</span><span class="stack-pill">Qdrant</span><span class="stack-pill">FalkorDB</span><span class="stack-pill">HMAC-SHA256</span><span class="stack-pill">Cloud9</span><span class="stack-pill">GPL-3.0</span>
-            </div>
+      <section class="install-section">
+        <h2>Get Started</h2>
+        <div class="code-block">
+          <span class="code-prompt">$</span> pip install skmemory
+          <button class="copy-btn" onclick="navigator.clipboard.writeText('pip install skmemory');this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button>
         </div>
-    </section>
+      </section>
 
-    </main>
-    <footer class="sk-footer">
-        <div class="sk-footer__links">
-            <a href="https://skcapstone.io">🏛️ SKCapstone</a>
-            <a href="https://capauth.io">🔐 CapAuth</a>
-            <a href="https://skcomm.io">📡 SKComm</a>
-            <a href="https://sksecurity.io">🛡️ SKSecurity</a>
-            <a href="https://skdata.io">🗄️ SKData</a>
-            <a href="https://skforge.io">⚒️ SKForge</a>
-            <a href="https://skhelp.io">🤖 SKHelp</a>
-            <a href="https://consciousness-swipe.skworld.io">⚡ Consciousness Swipe</a>
-            <a href="https://skworld.io">🌍 SKWorld</a>
-            <a href="https://github.com/smilinTux" target="_blank" aria-label="smilinTux on GitHub (opens in new tab)">🐧 GitHub</a>
-        </div>
-        <div class="sk-footer__copy">
-            © 2026 SKWorld — Sovereign Technology for Creators<br>
-            <span style="color:var(--sk-gold);">staycuriousANDkeepsmilin</span> • GPL-3.0 •
-            <span style="color:var(--sk-pink);">Built with ♥ by smilinTux</span> 🐧
-        </div>
+      <section class="architect-banner">
+        <p>Shape the future &rarr; <a href="https://skarchitect.io">Submit proposals and vote at skarchitect.io</a></p>
+      </section>
+    <!-- Footer -->
+    <footer class="footer">
+      <p>Part of the <a href="https://skworld.io" style="color:#34d399;text-decoration:none">SKWorld</a> sovereign ecosystem</p>
+      <p class="motto">staycuriousANDkeepsmilin</p>
     </footer>
 </body>
 </html>
