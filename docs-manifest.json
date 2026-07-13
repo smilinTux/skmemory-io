@@ -2,12 +2,28 @@
   "repo": "smilinTux/skmemory",
   "branch": "main",
   "path": "docs",
-  "generated": "2026-06-30",
+  "generated": "2026-07-13",
   "note": "Committed fallback for the /docs viewer when the GitHub Contents API is unavailable or rate-limited. Regenerate from: python docs-manifest-gen.py smilinTux/skmemory --out docs-manifest.json",
   "docs": [
     {
+      "name": "AGENT_REFACTOR_CHANGES.md",
+      "title": "SKMemory Agent Refactoring - Code Changes Summary"
+    },
+    {
+      "name": "ARCHITECTURE.md",
+      "title": "SKMemory Architecture"
+    },
+    {
       "name": "FORTRESS_SOP.md",
       "title": "Memory Fortress — Standard Operating Procedure"
+    },
+    {
+      "name": "IMPLEMENTATION_SPEC.md",
+      "title": "skmemory MemPalace Integration — Implementation Spec"
+    },
+    {
+      "name": "MISSION.md",
+      "title": "Mission"
     },
     {
       "name": "PQC_SEALING.md",
@@ -20,6 +36,10 @@
     {
       "name": "admission_policy.md",
       "title": "skmemory — admission policy"
+    },
+    {
+      "name": "skmem-pg-local-rebuild-remediation.md",
+      "title": "skmem-pg Remediation Plan — prb-6f069c5e (streaming-replication → local-per-node rebuild)"
     }
   ]
 }
